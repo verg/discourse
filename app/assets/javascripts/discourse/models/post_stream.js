@@ -522,9 +522,9 @@ Discourse.PostStream = Em.Object.extend({
     @method updateFromJson
   **/
   updateFromJson: function(postStreamData) {
-    var postStream = this;
+    var postStream = this,
+        posts = this.get('posts');
 
-    var posts = this.get('posts');
     posts.clear();
     if (postStreamData) {
       // Load posts if present
