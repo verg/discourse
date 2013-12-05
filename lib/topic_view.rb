@@ -2,7 +2,7 @@ require_dependency 'guardian'
 require_dependency 'topic_query'
 require_dependency 'filter_best_posts'
 require_dependency 'summarize'
-require_dependency 'gap_finder'
+require_dependency 'gaps'
 
 class TopicView
 
@@ -51,7 +51,7 @@ class TopicView
 
   def gaps
     return unless @contains_gaps
-    GapFinder.find(filtered_post_ids, unfiltered_posts.order(:sort_order).pluck(:id))
+    Gaps.new(filtered_post_ids, unfiltered_posts.order(:sort_order).pluck(:id))
   end
 
   def last_post

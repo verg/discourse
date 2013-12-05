@@ -1,3 +1,6 @@
+require_dependency 'gap_serializer'
+require_dependency 'post_serializer'
+
 module PostStreamSerializerMixin
 
   def self.included(klass)
@@ -6,7 +9,7 @@ module PostStreamSerializerMixin
 
   def post_stream
     result = { posts: posts, stream: object.filtered_post_ids }
-    result[:gaps] = object.gaps if object.gaps.present?
+    result[:gaps] = GapSerializer.new(object.gaps, root: false) if object.gaps.present?
     result
   end
 
