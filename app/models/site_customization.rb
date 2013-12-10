@@ -86,7 +86,11 @@ class SiteCustomization < ActiveRecord::Base
   def self.custom_stylesheet_path(preview_style, target=:desktop)
     preview_style ||= enabled_style_key
     style = lookup_style(preview_style)
-    style.stylesheet_relative_path(target) if style
+    if style && ((target != :mobile && style.stylesheet) || (target == :mobile && style.mobile_stylesheet))
+      style.stylesheet_relative_path(target)
+    else
+      nil
+    end
   end
 
   def self.custom_header(preview_style, target=:desktop)
